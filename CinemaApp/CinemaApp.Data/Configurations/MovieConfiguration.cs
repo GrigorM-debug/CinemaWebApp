@@ -45,6 +45,8 @@ namespace CinemaApp.Data.Configurations
                 .Property(m => m.Description)
                 .IsRequired()
                 .HasMaxLength(DescriptionMaxLenght);
+
+            builder.HasData(MovieDataSeed());
         }
 
         private List<Movie> MovieDataSeed()
