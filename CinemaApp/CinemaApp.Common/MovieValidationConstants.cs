@@ -23,5 +23,9 @@ namespace CinemaApp.Common
         //Description lenght
         public const int DescriptionMaxLenght = 500;
         public const int DescriptionMinLenght = 10;
+
+        //Duration range
+        public const int MinDuration = 1;
+        public const int MaxDuration = 999;
     }
 }

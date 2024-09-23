@@ -24,6 +24,7 @@ namespace CinemaApp.Web.ViewModels
         public string ReleaseDate { get; set; } = null!;
 
         [Required]
+        [Range(MinDuration, MaxDuration)]
         public int Duration { get; set; }
 
         [Required]
