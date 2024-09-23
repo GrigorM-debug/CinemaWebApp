@@ -15,8 +15,9 @@ namespace CinemaApp.Web.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-            ViewBag.Message = "Welcome to the Cinema Web App!";
+            ViewData["Title"] = "Home Page";
+            ViewData["Message"] = "Welcome to the Cinema Web App!";
+
             return View();
         }
 
