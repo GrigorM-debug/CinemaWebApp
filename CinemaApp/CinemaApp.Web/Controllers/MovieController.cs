@@ -55,7 +55,7 @@ namespace CinemaApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(MovieInputViewModel inputModel)
         {
-            string dateFormat = "dd/MM/yyyy";
+            string dateFormat = "yyyy-MM";
 
             bool isReleaseDateValid = DateTime.TryParseExact(inputModel.ReleaseDate, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime validReleaseDate);
 
@@ -63,7 +63,7 @@ namespace CinemaApp.Web.Controllers
             {
                 if (!isReleaseDateValid)
                 {
-                    ModelState.AddModelError(nameof(inputModel.ReleaseDate), "The Release Date must be in the following format: dd/MM/yyy!");
+                    ModelState.AddModelError(nameof(inputModel.ReleaseDate), "The Release Date must be in the following format: yyyy-MM!");
 
                     return View(inputModel);
                 }
