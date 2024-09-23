@@ -1,4 +1,5 @@
-﻿using CinemaApp.Data.Models;
+﻿using Azure.Core;
+using CinemaApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -44,6 +45,34 @@ namespace CinemaApp.Data.Configurations
                 .Property(m => m.Description)
                 .IsRequired()
                 .HasMaxLength(DescriptionMaxLenght);
+        }
+
+        private List<Movie> MovieDataSeed()
+        {
+            List<Movie> movies = new List<Movie>()
+            {
+                new Movie()
+                {
+                    Title = "Star Wars: Episode V - The Empire Strikes Back",
+                    Genre = "Action Epic",
+                    ReleaseDate = new DateTime(1980, 05, 06),
+                    Director = "Irvin Kershner",
+                    Duration = 124,
+                    Description = "After the Empire overpowers the Rebel Alliance, Luke Skywalker begins his Jedi training with Yoda. At the same time, Darth Vader and bounty hunter Boba Fett pursue his friends across the galaxy."
+                },
+
+                new Movie()
+                {
+                    Title = "The Godfather",
+                    Genre = "Gangster",
+                    ReleaseDate = new DateTime(1972, 03, 14),
+                    Director = "Francis Ford Coppola",
+                    Duration = 175,
+                    Description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son."
+                }
+            };
+
+            return movies;
         }
     }
 }
