@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using static CinemaApp.Common.ApplicationConstants
+@{
+    int currentDate = DateTime.UtcNow.Year;
+
+    string footerNote = (currentDate == projectStartDate) ? 
+        $"{projectStartDate}" : $"{projectStartDate} - {currentDate}";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -36,7 +44,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - CinemaApp.Web
+            &copy; @footerNote - CinemaApp.Web
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
