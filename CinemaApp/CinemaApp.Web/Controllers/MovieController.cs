@@ -38,7 +38,9 @@ namespace CinemaApp.Web.Controllers
 
             Movie? movie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == idGuid);
 
-            if (movie is null)
+            Console.WriteLine(idGuid);
+
+            if (movie == null)
             {
                 return RedirectToAction(nameof(Index));
             }
