@@ -30,17 +30,17 @@ namespace CinemaApp.Web.Controllers
 
             if (!isIdGuid)
             {
-                return View(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
 
             Movie? movie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == idGuid);
 
-            if(movie is null)
+            if (movie is null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
-           return View(movie);
+            return View(movie);
         }
     }
 }
