@@ -9,5 +9,6 @@ namespace CinemaApp.Common
     public static class ApplicationConstants
     {
         public const int projectStartDate = 2024;
+        public const string MovieReleaseDateFormat = "yyyy-MM";
     }
 }

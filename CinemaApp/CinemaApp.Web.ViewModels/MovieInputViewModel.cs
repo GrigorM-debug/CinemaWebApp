@@ -4,7 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CinemaApp.Common.EntityValidations.MovieValidations;
 using static CinemaApp.Common.MovieValidationConstants;
+using static CinemaApp.Common.ApplicationConstants;
+using CinemaApp.Common;
 
 namespace CinemaApp.Web.ViewModels
 {
@@ -12,34 +15,34 @@ namespace CinemaApp.Web.ViewModels
     {
         public MovieInputViewModel()
         {
-            ReleaseDate = DateTime.Today;
+            ReleaseDate = DateTime.UtcNow.ToString(MovieReleaseDateFormat);
         }
 
-        [Required]
-        [MinLength(TitleMinLenght)]
-        [MaxLength(TitleMaxLenght)]
+        [Required(ErrorMessage = TitleIsRequiredMessage)]
+        [MinLength(TitleMinLenght, ErrorMessage = TitleMinLenghtMessage)]
+        [MaxLength(TitleMaxLenght, ErrorMessage = TitleMaxLenghtMessage)]
         public string Title { get; set; } = null!;
 
-        [Required]
-        [MinLength(GenreMinLenght)]
-        [MaxLength(GenreMaxLenght)]
+        [Required(ErrorMessage = GenreIsRequiredMessage)]
+        [MinLength(GenreMinLenght, ErrorMessage = GenreMinLenghtMessage)]
+        [MaxLength(GenreMaxLenght, ErrorMessage = GenreMaxLenghtMessage)]
         public string Genre { get; set; } = null!;
 
-        [Required]
-        public DateTime ReleaseDate { get; set; }
+        [Required(ErrorMessage = ReleaseDateIsRequireMessage)]
+        public string ReleaseDate { get; set; }
 
-        [Required]
-        [Range(MinDuration, MaxDuration)]
+        [Required(ErrorMessage = DurationIsRequiredMessage)]
+        [Range(MinDuration, MaxDuration, ErrorMessage = DurationRangeMessage)]
         public int Duration { get; set; }
 
-        [Required]
-        [MinLength(DirectorMinLenght)]
-        [MaxLength(DirectorMaxLenght)]
+        [Required(ErrorMessage = DirectorNameIsRequiredMessage)]
+        [MinLength(DirectorMinLenght, ErrorMessage = DirectorNameMinLenghtMessage)]
+        [MaxLength(DirectorMaxLenght, ErrorMessage = DirectorNameMaxLenghtMessage)]
         public string Director { get; set; } = null!;
 
-        [Required]
-        [MinLength(DescriptionMinLenght)]
-        [MaxLength(DescriptionMaxLenght)]
+        [Required(ErrorMessage = DescriptionIsRequiredMessage)]
+        [MinLength(DescriptionMinLenght, ErrorMessage = DescriptionMinLenghtMessage)]
+        [MaxLength(DescriptionMaxLenght, ErrorMessage = DescriptionMaxLenghtMessage)]
         public string Description { get; set; } = null!;
     }
 }
