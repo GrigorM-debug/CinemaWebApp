@@ -32,5 +32,11 @@ namespace CinemaApp.Web.Controllers
 
             return View(cinemaIndexViewModels);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
