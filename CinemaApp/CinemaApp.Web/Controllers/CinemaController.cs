@@ -38,5 +38,25 @@ namespace CinemaApp.Web.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CinemaCreateViewModel cinemaCreateViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(cinemaCreateViewModel);
+            }
+
+            Cinema newCinema = new Cinema()
+            {
+                Name = cinemaCreateViewModel.Name,
+                Location = cinemaCreateViewModel.Location,
+            };
+
+            await _context.Cinemas.AddAsync(newCinema);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
