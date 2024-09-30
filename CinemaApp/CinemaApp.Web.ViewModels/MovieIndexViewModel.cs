@@ -11,7 +11,7 @@ namespace CinemaApp.Web.ViewModels
 {
     public class MovieIndexViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = null;
 
         [Required(ErrorMessage = TitleIsRequiredMessage)]
         [MinLength(TitleMinLenght)]

@@ -3,6 +3,7 @@ using CinemaApp.Data.Models;
 using CinemaApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace CinemaApp.Web.Controllers
 {
@@ -25,7 +26,7 @@ namespace CinemaApp.Web.Controllers
             IEnumerable<CinemaIndexViewModel> cinemaIndexViewModels = cinemas
                 .Select(cinemas => new CinemaIndexViewModel
                 {
-                    Id = cinemas.Id,
+                    Id = cinemas.Id.ToString(),
                     Name = cinemas.Name,
                     Location = cinemas.Location,
                 });
@@ -57,6 +58,42 @@ namespace CinemaApp.Web.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string? id)
+        {
+            bool isGuidValid = Guid.TryParse(id, out Guid guidId);
+
+            if (!isGuidValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            Cinema? cinema = await _context
+                .Cinemas
+                .Include(c => c.CinemasMovies)
+                .ThenInclude(cm => cm.Movie)
+                .FirstOrDefaultAsync(c => c.Id == guidId);
+
+            if(cinema == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            CinemaDetailsViewModel cinemaDetailsViewModel = new CinemaDetailsViewModel()
+            {
+                Name= cinema.Name,
+                Location= cinema.Location,
+                Movies = cinema.CinemasMovies
+                    .Select(cm => new MoviewProgramViewModel
+                    { 
+                        Title = cm.Movie.Title,
+                        Duration = cm.Movie.Duration,
+                    }).ToList()
+            };
+
+            return View(cinemaDetailsViewModel);
         }
     }
 }

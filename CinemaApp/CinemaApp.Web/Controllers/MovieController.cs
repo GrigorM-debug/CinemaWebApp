@@ -29,7 +29,7 @@ namespace CinemaApp.Web.Controllers
             IEnumerable<MovieIndexViewModel> movieIndexViewModels = allMovies
                 .Select(movie => new MovieIndexViewModel
                 {
-                    Id = movie.Id,
+                    Id = movie.Id.ToString(),
                     Title = movie.Title,
                     Genre = movie.Genre,
                     ReleaseDate = movie.ReleaseDate,
@@ -62,7 +62,7 @@ namespace CinemaApp.Web.Controllers
 
             MovieIndexViewModel movieIndexViewModel = new MovieIndexViewModel()
             {
-                Id = movie.Id,
+                Id = movie.Id.ToString(),
                 Title = movie.Title,
                 Genre = movie.Genre,
                 ReleaseDate = movie.ReleaseDate,
