@@ -10,6 +10,11 @@ namespace CinemaApp.Web.ViewModels
 {
     public class MovieInputViewModel
     {
+        public MovieInputViewModel()
+        {
+            ReleaseDate = DateTime.Today;
+        }
+
         [Required]
         [MinLength(TitleMinLenght)]
         [MaxLength(TitleMaxLenght)]
@@ -21,7 +26,7 @@ namespace CinemaApp.Web.ViewModels
         public string Genre { get; set; } = null!;
 
         [Required]
-        public string ReleaseDate { get; set; } = null!;
+        public DateTime ReleaseDate { get; set; }
 
         [Required]
         [Range(MinDuration, MaxDuration)]
