@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CinemaApp.Data.Seeding;
 
 namespace CinemaApp.Data
 {
@@ -21,10 +22,17 @@ namespace CinemaApp.Data
         }
 
         public virtual DbSet<Movie> Movies { get; set; } = null!;
+        public virtual DbSet<Cinema> Cinemas { get; set; } = null!;
+        public virtual DbSet<CinemaMovie> CinemasMovies { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            // Seed data
+            CinemaAppDataSeeder.SeedCinemas(modelBuilder);
+            CinemaAppDataSeeder.SeedMovies(modelBuilder);
+            CinemaAppDataSeeder.SeedCinemaMovies(modelBuilder);
         }
     }
 }

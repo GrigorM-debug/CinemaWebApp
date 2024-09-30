@@ -4,6 +4,7 @@ using CinemaApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaApp.Data.Migrations
 {
     [DbContext(typeof(CinemaAppDbContext))]
-    partial class CinemaAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240930171257_CinemaDataSeed")]
+    partial class CinemaDataSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,27 +46,27 @@ namespace CinemaApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4445db85-b94d-4ace-8ccd-b5b8c0d66fc9"),
+                            Id = new Guid("020105c3-8be5-4cb1-ada7-3c56b7eea587"),
                             Location = "Sofia",
                             Name = "Kino Arena"
                         },
                         new
                         {
-                            Id = new Guid("4f389851-d6e9-4cd8-9045-4a1bc3c2ecb3"),
+                            Id = new Guid("1187b14b-a184-4163-8c1a-c55c38f28f75"),
                             Location = "Sofia",
                             Name = "Cinema City"
                         },
                         new
                         {
-                            Id = new Guid("6551ae12-4c18-4a8a-8d3e-69d46a900020"),
-                            Location = "Plovdiv",
-                            Name = "Kino Arena"
+                            Id = new Guid("c960b81e-1f9b-4036-963f-6f422a9705f2"),
+                            Location = "Stara Zagora",
+                            Name = "Mall Gallery"
                         },
                         new
                         {
-                            Id = new Guid("afed7bf2-aa76-4a21-a820-65fdbbec7001"),
-                            Location = "Stara Zagora",
-                            Name = "Mall Gallery"
+                            Id = new Guid("79340fc4-6a75-4957-8379-0dec012cf4f0"),
+                            Location = "Plovdiv",
+                            Name = "Kino Arena"
                         });
                 });
 
@@ -80,28 +83,6 @@ namespace CinemaApp.Data.Migrations
                     b.HasIndex("CinemaId");
 
                     b.ToTable("CinemasMovies");
-
-                    b.HasData(
-                        new
-                        {
-                            MovieId = new Guid("c2832c54-5e13-46e9-9c90-9a8ae7419cf2"),
-                            CinemaId = new Guid("4445db85-b94d-4ace-8ccd-b5b8c0d66fc9")
-                        },
-                        new
-                        {
-                            MovieId = new Guid("f376e02c-06a7-4f47-9d28-cf327a0b2d98"),
-                            CinemaId = new Guid("4f389851-d6e9-4cd8-9045-4a1bc3c2ecb3")
-                        },
-                        new
-                        {
-                            MovieId = new Guid("c2832c54-5e13-46e9-9c90-9a8ae7419cf2"),
-                            CinemaId = new Guid("6551ae12-4c18-4a8a-8d3e-69d46a900020")
-                        },
-                        new
-                        {
-                            MovieId = new Guid("f376e02c-06a7-4f47-9d28-cf327a0b2d98"),
-                            CinemaId = new Guid("afed7bf2-aa76-4a21-a820-65fdbbec7001")
-                        });
                 });
 
             modelBuilder.Entity("CinemaApp.Data.Models.Movie", b =>

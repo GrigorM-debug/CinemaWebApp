@@ -13,6 +13,7 @@ namespace CinemaApp.Data.Models
         public Movie()
         {
             Id = Guid.NewGuid();
+            CinemasMovies = new HashSet<CinemaMovie>();
         }
 
         public Guid Id { get; set; }
@@ -33,5 +34,7 @@ namespace CinemaApp.Data.Models
 
         [MinLength(DescriptionMinLenght)]
         public string Description { get; set; } = null!;
+
+        public virtual ICollection<CinemaMovie> CinemasMovies { get; set; }
     }
 }

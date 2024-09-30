@@ -4,6 +4,7 @@ using CinemaApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaApp.Data.Migrations
 {
     [DbContext(typeof(CinemaAppDbContext))]
-    partial class CinemaAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240930171024_AddedCinemaModel")]
+    partial class AddedCinemaModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,32 +42,6 @@ namespace CinemaApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cinemas");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("4445db85-b94d-4ace-8ccd-b5b8c0d66fc9"),
-                            Location = "Sofia",
-                            Name = "Kino Arena"
-                        },
-                        new
-                        {
-                            Id = new Guid("4f389851-d6e9-4cd8-9045-4a1bc3c2ecb3"),
-                            Location = "Sofia",
-                            Name = "Cinema City"
-                        },
-                        new
-                        {
-                            Id = new Guid("6551ae12-4c18-4a8a-8d3e-69d46a900020"),
-                            Location = "Plovdiv",
-                            Name = "Kino Arena"
-                        },
-                        new
-                        {
-                            Id = new Guid("afed7bf2-aa76-4a21-a820-65fdbbec7001"),
-                            Location = "Stara Zagora",
-                            Name = "Mall Gallery"
-                        });
                 });
 
             modelBuilder.Entity("CinemaApp.Data.Models.CinemaMovie", b =>
@@ -80,28 +57,6 @@ namespace CinemaApp.Data.Migrations
                     b.HasIndex("CinemaId");
 
                     b.ToTable("CinemasMovies");
-
-                    b.HasData(
-                        new
-                        {
-                            MovieId = new Guid("c2832c54-5e13-46e9-9c90-9a8ae7419cf2"),
-                            CinemaId = new Guid("4445db85-b94d-4ace-8ccd-b5b8c0d66fc9")
-                        },
-                        new
-                        {
-                            MovieId = new Guid("f376e02c-06a7-4f47-9d28-cf327a0b2d98"),
-                            CinemaId = new Guid("4f389851-d6e9-4cd8-9045-4a1bc3c2ecb3")
-                        },
-                        new
-                        {
-                            MovieId = new Guid("c2832c54-5e13-46e9-9c90-9a8ae7419cf2"),
-                            CinemaId = new Guid("6551ae12-4c18-4a8a-8d3e-69d46a900020")
-                        },
-                        new
-                        {
-                            MovieId = new Guid("f376e02c-06a7-4f47-9d28-cf327a0b2d98"),
-                            CinemaId = new Guid("afed7bf2-aa76-4a21-a820-65fdbbec7001")
-                        });
                 });
 
             modelBuilder.Entity("CinemaApp.Data.Models.Movie", b =>
@@ -143,7 +98,7 @@ namespace CinemaApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c2832c54-5e13-46e9-9c90-9a8ae7419cf2"),
+                            Id = new Guid("4f877b32-8dee-4fc0-878b-7a39c302c7da"),
                             Description = "After the Empire overpowers the Rebel Alliance, Luke Skywalker begins his Jedi training with Yoda. At the same time, Darth Vader and bounty hunter Boba Fett pursue his friends across the galaxy.",
                             Director = "Irvin Kershner",
                             Duration = 124,
@@ -153,7 +108,7 @@ namespace CinemaApp.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f376e02c-06a7-4f47-9d28-cf327a0b2d98"),
+                            Id = new Guid("121765d5-9cf3-4be6-9abd-28e68c23ea82"),
                             Description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
                             Director = "Francis Ford Coppola",
                             Duration = 175,
