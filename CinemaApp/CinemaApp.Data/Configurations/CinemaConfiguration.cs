@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CinemaApp.Common.CinemaValidationConstants;
 
 namespace CinemaApp.Data.Configurations
 {
@@ -18,11 +19,13 @@ namespace CinemaApp.Data.Configurations
 
             builder
                 .Property(c => c.Name)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(NameMaxLenght);
 
             builder
                 .Property(c => c.Location)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(LocationMaxLenght);
 
             //builder.HasData(CinemaDataSeed());
         }
