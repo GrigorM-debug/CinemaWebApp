@@ -11,7 +11,6 @@ namespace CinemaApp.Web.ViewModels
 {
     public class CinemaIndexViewModel
     {
-        [Required]
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = NameIsRequredMessage)]

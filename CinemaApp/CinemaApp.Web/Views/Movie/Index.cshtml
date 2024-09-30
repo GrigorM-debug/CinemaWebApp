@@ -1,6 +1,6 @@
-﻿@using CinemaApp.Data.Models;
-@using System.Globalization
-@model IEnumerable<Movie>
+﻿@using CinemaApp.Web.ViewModels;
+@using System.Globalization;
+@model IEnumerable<MovieIndexViewModel>
 
 <h2>All Movies</h2>
 
@@ -23,7 +23,7 @@
                 <td>@movie.ReleaseDate.ToString("MMMM yyyy", CultureInfo.InvariantCulture)</td>
                 <td>@movie.Duration minutes</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@movie.Id" class="btn btn-info">Details</a>
+                    <a asp-action="Details" asp-route-id="@movie.Id.ToString()" class="btn btn-info">Details</a>
                 </td>
             </tr>
         }

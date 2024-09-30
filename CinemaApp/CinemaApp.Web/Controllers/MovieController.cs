@@ -21,13 +21,28 @@ namespace CinemaApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Movie> allMovies = await _context.Movies.ToListAsync();
+            IEnumerable<Movie> allMovies = await _context
+                .Movies
+                .AsNoTracking()
+                .ToListAsync();
 
-            return View(allMovies);
+            IEnumerable<MovieIndexViewModel> movieIndexViewModels = allMovies
+                .Select(movie => new MovieIndexViewModel
+                {
+                    Id = movie.Id,
+                    Title = movie.Title,
+                    Genre = movie.Genre,
+                    ReleaseDate = movie.ReleaseDate,
+                    Director = movie.Director,
+                    Duration = movie.Duration,
+                    Description = movie.Description,
+                });
+
+            return View(movieIndexViewModels);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(string movieId)
+        public async Task<IActionResult> Details(string? movieId)
         {
             bool isIdGuid = Guid.TryParse(movieId, out Guid idGuid);
 
@@ -45,7 +60,18 @@ namespace CinemaApp.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(movie);
+            MovieIndexViewModel movieIndexViewModel = new MovieIndexViewModel()
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Genre = movie.Genre,
+                ReleaseDate = movie.ReleaseDate,
+                Director = movie.Director,
+                Duration = movie.Duration,
+                Description = movie.Description,
+            };
+
+            return View(movieIndexViewModel);
         }
 
         [HttpGet]
