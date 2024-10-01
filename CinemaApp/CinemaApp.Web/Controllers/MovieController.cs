@@ -42,9 +42,9 @@ namespace CinemaApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(string? movieId)
+        public async Task<IActionResult> Details(string? id)
         {
-            bool isIdGuid = Guid.TryParse(movieId, out Guid idGuid);
+            bool isIdGuid = Guid.TryParse(id, out Guid idGuid);
 
             if (!isIdGuid)
             {
