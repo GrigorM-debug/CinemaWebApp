@@ -4,7 +4,9 @@ using CinemaApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Owin.Security.OAuth;
+using Microsoft.VisualBasic;
 using System.Globalization;
+using static CinemaApp.Common.ApplicationConstants;
 
 namespace CinemaApp.Web.Controllers
 {
@@ -82,9 +84,7 @@ namespace CinemaApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(MovieInputViewModel inputModel)
         {
-            string dateFormat = "yyyy-MM";
-
-            bool isReleaseDateValid = DateTime.TryParseExact(inputModel.ReleaseDate, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime validReleaseDate);
+            bool isReleaseDateValid = DateTime.TryParseExact(inputModel.ReleaseDate, MovieReleaseDateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime validReleaseDate);
 
             if (!ModelState.IsValid)
             {
@@ -140,6 +140,48 @@ namespace CinemaApp.Web.Controllers
             };
 
             return View(movieEditViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MovieEditInputViewModel model, string? id)
+        {
+            bool isMovieIdValidGuid = Guid.TryParse(id, out Guid movieGuidId);
+
+            if(!isMovieIdValidGuid)
+            {
+                return View(model);
+            }
+
+            Movie? movie = await _context.Movies.FirstOrDefaultAsync(m =>m.Id == movieGuidId);  
+
+            if(movie == null)
+            {
+                return View(model);
+            }
+
+
+            bool isReleaseDateValid = DateTime.TryParseExact(model.ReleaseDate, MovieReleaseDateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime validReleaseDate);
+
+            if (!ModelState.IsValid)
+            {
+                if (!isReleaseDateValid)
+                {
+                    ModelState.AddModelError(nameof(model.ReleaseDate), "The Release Date must be in the following format: yyyy-MM!");
+
+                    return View(model);
+                }
+            }
+
+            movie.Title = model.Title;
+            movie.Genre = model.Genre;
+            movie.ReleaseDate = validReleaseDate; // Update the release date
+            movie.Director = model.Director;
+            movie.Duration = model.Duration;
+            movie.Description = model.Description;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
