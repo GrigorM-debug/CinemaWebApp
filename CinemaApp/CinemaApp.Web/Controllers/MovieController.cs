@@ -3,8 +3,6 @@ using CinemaApp.Data.Models;
 using CinemaApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Owin.Security.OAuth;
-using Microsoft.VisualBasic;
 using System.Globalization;
 using static CinemaApp.Common.ApplicationConstants;
 
