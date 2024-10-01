@@ -4,8 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CinemaApp.Web.ViewModels.Cinema;
 using static CinemaApp.Common.MovieValidationConstants;
-namespace CinemaApp.Web.ViewModels
+namespace CinemaApp.Web.ViewModels.Movie
 {
     public class AddMovieToCinemaProgramViewModel
     {

@@ -9,7 +9,7 @@ using static CinemaApp.Common.MovieValidationConstants;
 using static CinemaApp.Common.ApplicationConstants;
 using CinemaApp.Common;
 
-namespace CinemaApp.Web.ViewModels
+namespace CinemaApp.Web.ViewModels.Movie
 {
     public class MovieInputViewModel
     {

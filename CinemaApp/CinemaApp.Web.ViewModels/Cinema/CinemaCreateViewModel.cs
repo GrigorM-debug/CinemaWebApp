@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using static CinemaApp.Common.CinemaValidationConstants;
 using static CinemaApp.Common.EntityValidations.CinemaValidations;
 
-namespace CinemaApp.Web.ViewModels
+namespace CinemaApp.Web.ViewModels.Cinema
 {
     public class CinemaCreateViewModel
     {

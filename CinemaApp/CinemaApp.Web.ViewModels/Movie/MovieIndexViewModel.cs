@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using static CinemaApp.Common.MovieValidationConstants;
 using static CinemaApp.Common.EntityValidations.MovieValidations;
 
-namespace CinemaApp.Web.ViewModels
+namespace CinemaApp.Web.ViewModels.Movie
 {
     public class MovieIndexViewModel
     {

@@ -1,6 +1,7 @@
 ﻿using CinemaApp.Data;
 using CinemaApp.Data.Models;
-using CinemaApp.Web.ViewModels;
+using CinemaApp.Web.ViewModels.Cinema;
+using CinemaApp.Web.ViewModels.Movie;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -59,9 +60,8 @@ namespace CinemaApp.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            MovieIndexViewModel movieIndexViewModel = new MovieIndexViewModel()
+            MovieDetailsViewModel movieDetailsViewModel = new MovieDetailsViewModel()
             {
-                Id = movie.Id.ToString(),
                 Title = movie.Title,
                 Genre = movie.Genre,
                 ReleaseDate = movie.ReleaseDate,
@@ -70,7 +70,7 @@ namespace CinemaApp.Web.Controllers
                 Description = movie.Description,
             };
 
-            return View(movieIndexViewModel);
+            return View(movieDetailsViewModel);
         }
 
         [HttpGet]

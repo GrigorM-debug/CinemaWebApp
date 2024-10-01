@@ -8,7 +8,7 @@ using static CinemaApp.Common.EntityValidations.MovieValidations;
 using static CinemaApp.Common.MovieValidationConstants;
 using static CinemaApp.Common.ApplicationConstants;
 
-namespace CinemaApp.Web.ViewModels
+namespace CinemaApp.Web.ViewModels.Movie
 {
     public class MovieEditInputViewModel
     {
