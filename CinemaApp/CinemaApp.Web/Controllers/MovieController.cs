@@ -154,6 +154,7 @@ namespace CinemaApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToProgram(AddMovieToCinemaProgramViewModel addMovieToCinemaProgramViewModel)
         {
+            string cinemaDetailsId = string.Empty;
             if (!ModelState.IsValid)
             {
                 return View(addMovieToCinemaProgramViewModel);
@@ -196,6 +197,8 @@ namespace CinemaApp.Web.Controllers
                 { 
                     if (cinemaMovie == null)
                     {
+                        cinemaDetailsId = guidIdValidGuid.ToString();
+
                         entitiesToAdd.Add(new CinemaMovie()
                         {
                             Cinema = cinema,
@@ -207,10 +210,11 @@ namespace CinemaApp.Web.Controllers
                         cinemaMovie.IsDeleted = false;
                     }
                 }
-                else
+                else // if is unchecked. This means we are removing the movie from the cinema program
                 {
                     if(cinemaMovie != null)
                     {
+                        cinemaDetailsId = guidIdValidGuid.ToString();
                         cinemaMovie.IsDeleted = true;
                     }
                 }
@@ -218,7 +222,7 @@ namespace CinemaApp.Web.Controllers
             await _context.CinemasMovies.AddRangeAsync(entitiesToAdd);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Details), "Cinema");
+            return RedirectToAction(nameof(Details), "Cinema", new { id = cinemaDetailsId });
         }
     }
 }
