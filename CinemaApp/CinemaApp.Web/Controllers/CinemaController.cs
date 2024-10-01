@@ -3,6 +3,7 @@ using CinemaApp.Data.Models;
 using CinemaApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace CinemaApp.Web.Controllers
@@ -83,10 +84,12 @@ namespace CinemaApp.Web.Controllers
 
             CinemaDetailsViewModel cinemaDetailsViewModel = new CinemaDetailsViewModel()
             {
+                Id = cinema.Id.ToString(),
                 Name= cinema.Name,
                 Location= cinema.Location,
                 Movies = cinema.CinemasMovies
-                    .Select(cm => new MoviewProgramViewModel
+                    .Where(c => c.IsDeleted == false)
+                    .Select(cm => new MovieProgramViewModel
                     { 
                         Title = cm.Movie.Title,
                         Duration = cm.Movie.Duration,

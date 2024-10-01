@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace CinemaApp.Web.ViewModels
 {
-    public class CinemaDetailsViewModel
+    public class CinemaCheckBoxViewModel
     {
         public string Id { get; set; } = null!;
         public string Name { get; set; } = null!;
 
         public string Location { get; set; } = null!;
-
-        public IEnumerable<MovieProgramViewModel> Movies = new HashSet<MovieProgramViewModel>();
+        public bool IsSelected { get; set; }
     }
 }

@@ -32,7 +32,12 @@ namespace CinemaApp.Data.Configurations
             builder
                 .HasOne(cm => cm.Cinema)                    
                 .WithMany(c => c.CinemasMovies)             
-                .HasForeignKey(cm => cm.CinemaId);          
+                .HasForeignKey(cm => cm.CinemaId);
+
+            builder
+                .Property(cm => cm.IsDeleted)
+                .HasDefaultValue(false);
+            
         }
     }
 }

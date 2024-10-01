@@ -5,7 +5,9 @@ using CinemaApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace CinemaApp.Web.Controllers
 {
@@ -111,6 +113,112 @@ namespace CinemaApp.Web.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddToProgram(string? movieId)
+        {
+            bool isIdValid = Guid.TryParse(movieId, out Guid guidId);
+
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            Movie? movie = await _context.Movies.FirstOrDefaultAsync(m=> m.Id == guidId);
+
+            if (movie == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            AddMovieToCinemaProgramViewModel addMovieToCinemaProgramViewModel = new AddMovieToCinemaProgramViewModel
+            {
+                MovieId = guidId.ToString(),
+                MovieTitle = movie.Title,
+                Cinemas = await _context.Cinemas
+                    .Include(c => c.CinemasMovies)
+                    .ThenInclude(cm => cm.Movie)
+                    .Select(c => new CinemaCheckBoxViewModel
+                    {
+                        Id = c.Id.ToString(),
+                        Name = c.Name,
+                        Location = c.Location,
+                        IsSelected = c.CinemasMovies.Any(cm => cm.Movie.Id == guidId),
+                    }).ToListAsync()
+            };
+
+            return View(addMovieToCinemaProgramViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToProgram(AddMovieToCinemaProgramViewModel addMovieToCinemaProgramViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(addMovieToCinemaProgramViewModel);
+            }
+
+            bool isIdValid = Guid.TryParse(addMovieToCinemaProgramViewModel.MovieId, out Guid guidIdValid);
+
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            Movie? movie = await _context.Movies.FirstOrDefaultAsync(movie => movie.Id == guidIdValid);
+
+            if (movie == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            ICollection<CinemaMovie> entitiesToAdd = new HashSet<CinemaMovie>();
+
+            foreach (CinemaCheckBoxViewModel cinemaCheckBoxViewModel in addMovieToCinemaProgramViewModel.Cinemas)
+            {
+                bool isIdValidGuid = Guid.TryParse(cinemaCheckBoxViewModel.Id, out Guid guidIdValidGuid);
+                if (!isIdValidGuid)
+                {
+                    continue; //you can also throw exception and handle it
+                }
+
+                Cinema? cinema = await _context.Cinemas.FirstOrDefaultAsync(c => c.Id == guidIdValidGuid);
+
+                if (cinema == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                CinemaMovie? cinemaMovie = await _context.CinemasMovies.FirstOrDefaultAsync(cm => cm.MovieId == movie.Id && cm.CinemaId == cinema.Id);
+
+                if (cinemaCheckBoxViewModel.IsSelected)
+                { 
+                    if (cinemaMovie == null)
+                    {
+                        entitiesToAdd.Add(new CinemaMovie()
+                        {
+                            Cinema = cinema,
+                            Movie = movie
+                        });
+                    }
+                    else
+                    {
+                        cinemaMovie.IsDeleted = false;
+                    }
+                }
+                else
+                {
+                    if(cinemaMovie != null)
+                    {
+                        cinemaMovie.IsDeleted = true;
+                    }
+                }
+            }
+            await _context.CinemasMovies.AddRangeAsync(entitiesToAdd);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), "Cinema");
         }
     }
 }

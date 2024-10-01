@@ -4,6 +4,7 @@ using CinemaApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaApp.Data.Migrations
 {
     [DbContext(typeof(CinemaAppDbContext))]
-    partial class CinemaAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241001071554_AddedDatabaseEntityComments")]
+    partial class AddedDatabaseEntityComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,11 +83,6 @@ namespace CinemaApp.Data.Migrations
                     b.Property<Guid>("CinemaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
                     b.HasKey("MovieId", "CinemaId");
 
                     b.HasIndex("CinemaId");
@@ -95,26 +93,22 @@ namespace CinemaApp.Data.Migrations
                         new
                         {
                             MovieId = new Guid("c2832c54-5e13-46e9-9c90-9a8ae7419cf2"),
-                            CinemaId = new Guid("4445db85-b94d-4ace-8ccd-b5b8c0d66fc9"),
-                            IsDeleted = false
+                            CinemaId = new Guid("4445db85-b94d-4ace-8ccd-b5b8c0d66fc9")
                         },
                         new
                         {
                             MovieId = new Guid("f376e02c-06a7-4f47-9d28-cf327a0b2d98"),
-                            CinemaId = new Guid("4f389851-d6e9-4cd8-9045-4a1bc3c2ecb3"),
-                            IsDeleted = false
+                            CinemaId = new Guid("4f389851-d6e9-4cd8-9045-4a1bc3c2ecb3")
                         },
                         new
                         {
                             MovieId = new Guid("c2832c54-5e13-46e9-9c90-9a8ae7419cf2"),
-                            CinemaId = new Guid("6551ae12-4c18-4a8a-8d3e-69d46a900020"),
-                            IsDeleted = false
+                            CinemaId = new Guid("6551ae12-4c18-4a8a-8d3e-69d46a900020")
                         },
                         new
                         {
                             MovieId = new Guid("f376e02c-06a7-4f47-9d28-cf327a0b2d98"),
-                            CinemaId = new Guid("afed7bf2-aa76-4a21-a820-65fdbbec7001"),
-                            IsDeleted = false
+                            CinemaId = new Guid("afed7bf2-aa76-4a21-a820-65fdbbec7001")
                         });
                 });
 

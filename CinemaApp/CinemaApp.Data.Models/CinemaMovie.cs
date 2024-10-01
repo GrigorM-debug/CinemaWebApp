@@ -29,5 +29,7 @@
         /// </summary>
         /// <value>The <see cref="Movie"/> that is shown at the cinema.</value>
         public virtual Movie Movie { get; set; } = null!;
+
+        public bool IsDeleted { get; set; }
     }
 }
