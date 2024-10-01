@@ -177,7 +177,7 @@ namespace CinemaApp.Web.Controllers
                 bool isIdValidGuid = Guid.TryParse(cinemaCheckBoxViewModel.Id, out Guid guidIdValidGuid);
                 if (!isIdValidGuid)
                 {
-                    continue; //you can also throw exception and handle it
+                    continue; //You can also throw exception and handle it. This will skip tyhe invalid cinema
                 }
 
                 Cinema? cinema = await _context.Cinemas.FirstOrDefaultAsync(c => c.Id == guidIdValidGuid);
