@@ -97,5 +97,16 @@ namespace CinemaApp.Web.Controllers
 
             return View(cinemaDetailsViewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string? id)
+        {
+            bool isIdValidGuid = Guid.TryParse(id, out Guid guidId);
+
+            if (!isIdValidGuid)
+            {
+                return RedirectToAction(nameof(Details));
+            }
+        }
     }
 }

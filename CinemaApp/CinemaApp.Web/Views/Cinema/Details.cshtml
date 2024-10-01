@@ -5,6 +5,8 @@
 
 <p><strong>Location:</strong> @Model.Location</p>
 
+<a asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="btn btn-primary">Edit Cinema</a>
+
 <h3>Movies Currently Showing:</h3>
 
 @if (Model.Movies.Any())
