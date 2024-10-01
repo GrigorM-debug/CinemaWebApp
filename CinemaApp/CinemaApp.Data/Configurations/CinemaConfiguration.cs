@@ -1,62 +1,47 @@
 ﻿using CinemaApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static CinemaApp.Common.CinemaValidationConstants;
 
 namespace CinemaApp.Data.Configurations
 {
+    /// <summary>
+    /// Configures the <see cref="Cinema"/> entity for the Entity Framework Core model.
+    /// </summary>
     public class CinemaConfiguration : IEntityTypeConfiguration<Cinema>
     {
+        /// <summary>
+        /// Configures the <see cref="Cinema"/> entity's properties and relationships.
+        /// </summary>
+        /// <param name="builder">The <see cref="EntityTypeBuilder{Cinema}"/> used to configure the entity.</param>
         public void Configure(EntityTypeBuilder<Cinema> builder)
         {
+            // Configure the primary key
             builder
-                .HasKey(c => c.Id);
+                .HasKey(c => c.Id)
+                .HasName("PK_Cinema_Id");
 
+            // Configure the Name property
             builder
                 .Property(c => c.Name)
                 .IsRequired()
-                .HasMaxLength(NameMaxLenght);
+                .HasMaxLength(NameMaxLenght)
+                .HasComment("The name of the cinema. Must be at least the minimum length specified.");
 
+            // Configure the Location property
             builder
                 .Property(c => c.Location)
                 .IsRequired()
-                .HasMaxLength(LocationMaxLenght);
+                .HasMaxLength(LocationMaxLenght)
+                .HasComment("The location of the cinema. Must be at least the minimum length specified.");
 
-            //builder.HasData(CinemaDataSeed());
+            // Configure the relationship with CinemaMovie
+            builder
+                .HasMany(c => c.CinemasMovies)
+                .WithOne(cm => cm.Cinema)
+                .HasForeignKey(cm => cm.CinemaId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Cinema_CinemaMovie_CinemaId");
         }
-
-        //private List<Cinema> CinemaDataSeed()
-        //{
-        //    List<Cinema> cinemas = new List<Cinema>()
-        //    {
-        //        new Cinema()
-        //        {
-        //            Name = "Kino Arena",
-        //            Location = "Sofia"
-        //        },
-        //        new Cinema()
-        //        {
-        //            Name = "Cinema City",
-        //            Location = "Sofia"
-        //        },
-        //        new Cinema() 
-        //        {
-        //            Name = "Mall Gallery",
-        //            Location = "Stara Zagora"
-        //        },
-        //        new Cinema() 
-        //        {
-        //            Name = "Kino Arena",
-        //            Location = "Plovdiv"
-        //        },
-        //    };
-
-        //    return cinemas;
-        //}
     }
 }
