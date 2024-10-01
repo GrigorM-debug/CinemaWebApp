@@ -24,7 +24,7 @@
                 <td>@movie.Duration minutes</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@movie.Id.ToString()" class="btn btn-info">Details</a>
-
+                    <a asp-action="Edit" asp-route-id="@movie.Id.ToString()" class="btn btn-info">Edit</a>
                     <a asp-action="AddToProgram" asp-route-movieId="@movie.Id.ToString()" class="btn btn-primary">Add To Program</a>
                 </td>
             </tr>

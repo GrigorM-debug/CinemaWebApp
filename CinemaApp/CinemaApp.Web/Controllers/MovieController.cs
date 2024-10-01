@@ -3,6 +3,7 @@ using CinemaApp.Data.Models;
 using CinemaApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Owin.Security.OAuth;
 using System.Globalization;
 
 namespace CinemaApp.Web.Controllers
@@ -109,6 +110,36 @@ namespace CinemaApp.Web.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string? id)
+        {
+            bool isMovieIdValidGuid = Guid.TryParse(id, out Guid movieGuidId);
+
+            if(!isMovieIdValidGuid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            Movie? movie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == movieGuidId);
+
+            if(movie == null)
+            {
+                return View(nameof(Index));
+            }
+
+            MovieEditViewModel movieEditViewModel = new MovieEditViewModel()
+            {
+                Title = movie.Title,
+                Genre = movie.Genre,
+                ReleaseDate = movie.ReleaseDate,
+                Director = movie.Director,
+                Duration = movie.Duration,
+                Description = movie.Description,
+            };
+
+            return View(movieEditViewModel);
         }
 
         [HttpGet]

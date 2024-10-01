@@ -9,9 +9,8 @@ using static CinemaApp.Common.EntityValidations.MovieValidations;
 
 namespace CinemaApp.Web.ViewModels
 {
-    public class MovieIndexViewModel
+    public class MovieEditViewModel
     {
-        public string Id { get; set; } = null!;
 
         [Required(ErrorMessage = TitleIsRequiredMessage)]
         [MinLength(TitleMinLenght)]
