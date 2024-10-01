@@ -107,6 +107,21 @@ namespace CinemaApp.Web.Controllers
             {
                 return RedirectToAction(nameof(Details));
             }
+
+            Cinema? cinema = await _context.Cinemas.FirstOrDefaultAsync(c => c.Id == guidId);
+
+            if(cinema == null)
+            {
+                return RedirectToAction(nameof(Details));
+            }
+
+            CinemaEditViewModel cinemaEditViewModel = new CinemaEditViewModel()
+            {
+                Name = cinema.Name,
+                Location = cinema.Location,
+            };
+
+            return View(cinemaEditViewModel);
         }
     }
 }
