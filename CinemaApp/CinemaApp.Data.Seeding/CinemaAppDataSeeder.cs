@@ -1,12 +1,18 @@
 ﻿using CinemaApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 
 namespace CinemaApp.Data.Seeding
 {
+    /// <summary>
+    /// Provides data seeding functionality for the CinemaApp application.
+    /// This class seeds initial data for cinemas, movies, and cinema-movie relationships.
+    /// </summary>
     public static class CinemaAppDataSeeder
     {
+        /// <summary>
+        /// Seeds predefined cinemas into the database.
+        /// </summary>
+        /// <param name="modelBuilder">The <see cref="ModelBuilder"/> used to configure the entity framework model.</param>
         public static void SeedCinemas(ModelBuilder modelBuilder)
         {
             var cinemas = new List<Cinema>
@@ -20,6 +26,10 @@ namespace CinemaApp.Data.Seeding
             modelBuilder.Entity<Cinema>().HasData(cinemas);
         }
 
+        /// <summary>
+        /// Seeds predefined movies into the database.
+        /// </summary>
+        /// <param name="modelBuilder">The <see cref="ModelBuilder"/> used to configure the entity framework model.</param>
         public static void SeedMovies(ModelBuilder modelBuilder)
         {
             var movies = new List<Movie>
@@ -31,6 +41,10 @@ namespace CinemaApp.Data.Seeding
             modelBuilder.Entity<Movie>().HasData(movies);
         }
 
+        /// <summary>
+        /// Seeds predefined cinema-movie relationships into the database.
+        /// </summary>
+        /// <param name="modelBuilder">The <see cref="ModelBuilder"/> used to configure the entity framework model.</param>
         public static void SeedCinemaMovies(ModelBuilder modelBuilder)
         {
             var cinemaMovies = new List<CinemaMovie>
