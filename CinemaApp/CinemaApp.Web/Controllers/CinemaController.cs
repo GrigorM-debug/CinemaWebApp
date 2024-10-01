@@ -3,8 +3,6 @@ using CinemaApp.Data.Models;
 using CinemaApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 
 namespace CinemaApp.Web.Controllers
 {

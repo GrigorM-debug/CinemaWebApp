@@ -1,13 +1,9 @@
-﻿using Azure.Core;
-using CinemaApp.Data;
+﻿using CinemaApp.Data;
 using CinemaApp.Data.Models;
 using CinemaApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 
 namespace CinemaApp.Web.Controllers
 {
