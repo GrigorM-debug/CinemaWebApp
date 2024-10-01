@@ -127,11 +127,12 @@ namespace CinemaApp.Web.Controllers
                 return View(nameof(Index));
             }
 
+
             MovieEditViewModel movieEditViewModel = new MovieEditViewModel()
             {
                 Title = movie.Title,
                 Genre = movie.Genre,
-                ReleaseDate = movie.ReleaseDate,
+                ReleaseDate = movie.ReleaseDate.ToString(),
                 Director = movie.Director,
                 Duration = movie.Duration,
                 Description = movie.Description,
@@ -141,7 +142,7 @@ namespace CinemaApp.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(MovieEditInputViewModel model, string? id)
+        public async Task<IActionResult> Edit(MovieEditViewModel model, string? id)
         {
             bool isMovieIdValidGuid = Guid.TryParse(id, out Guid movieGuidId);
 

@@ -17,6 +17,8 @@
     <div>
         <label for="ReleaseDate">Release Date</label>
         <input asp-for="ReleaseDate" type="month" class="form-control" />
+        @Html.TextBoxFor(model => model.ReleaseDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+
         <span asp-validation-for="ReleaseDate" class="text-danger"></span>
     </div>
     <div>

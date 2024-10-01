@@ -123,5 +123,35 @@ namespace CinemaApp.Web.Controllers
 
             return View(cinemaEditViewModel);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CinemaEditViewModel model, string? id)
+        {
+            bool isIdValidGuid = Guid.TryParse(id, out Guid guidId);
+
+            if (!isIdValidGuid)
+            {
+                return RedirectToAction(nameof(Details));
+            }
+
+            Cinema? cinema = await _context.Cinemas.FirstOrDefaultAsync(c => c.Id == guidId);
+
+            if (cinema == null)
+            {
+                return RedirectToAction(nameof(Details));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            cinema.Name = model.Name;
+            cinema.Location = model.Location;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details));
+        }
     }
 }
