@@ -9,7 +9,7 @@ namespace CinemaApp.Data
     /// Represents the database context for the CinemaApp.
     /// Manages the <see cref="Movie"/>, <see cref="Cinema"/>, and <see cref="CinemaMovie"/> entities.
     /// </summary>
-    public class CinemaAppDbContext : DbContext
+    public class CinemaAppDbContext : IdentityDbContext
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CinemaAppDbContext"/> class.
