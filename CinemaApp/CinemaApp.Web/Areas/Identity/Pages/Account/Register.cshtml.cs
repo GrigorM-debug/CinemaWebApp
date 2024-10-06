@@ -75,6 +75,17 @@ namespace CinemaApp.Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            /// 
+            [Required]
+            [Display(Name = "First Name")]
+            [StringLength(255, ErrorMessage = "First name must be between {2} and {1} characters long !",MinimumLength = 3)]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            [StringLength(255, ErrorMessage = "Last name must be between {2} and {1} characters long!", MinimumLength = 3)]
+            public string LastName { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
