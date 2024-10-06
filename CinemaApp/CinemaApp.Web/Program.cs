@@ -1,4 +1,5 @@
 using CinemaApp.Data;
+using CinemaApp.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,7 +12,7 @@ builder.Services.AddDbContext<CinemaAppDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+builder.Services.AddDefaultIdentity<CinemaAppUser>(options => 
 {
     options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequireDigit = true;

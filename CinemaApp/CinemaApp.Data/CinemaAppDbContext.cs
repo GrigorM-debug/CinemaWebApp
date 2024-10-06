@@ -10,15 +10,8 @@ namespace CinemaApp.Data
     /// Represents the database context for the CinemaApp.
     /// Manages the <see cref="Movie"/>, <see cref="Cinema"/>, and <see cref="CinemaMovie"/> entities.
     /// </summary>
-    public class CinemaAppDbContext : IdentityDbContext
+    public class CinemaAppDbContext : IdentityDbContext<CinemaAppUser>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CinemaAppDbContext"/> class.
-        /// </summary>
-        public CinemaAppDbContext()
-        {
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CinemaAppDbContext"/> class with the specified options.
         /// </summary>
@@ -48,13 +41,13 @@ namespace CinemaApp.Data
         /// <param name="modelBuilder">The <see cref="ModelBuilder"/> used to configure the model for the context.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             // Seed data
             CinemaAppDataSeeder.SeedCinemas(modelBuilder);
             CinemaAppDataSeeder.SeedMovies(modelBuilder);
             CinemaAppDataSeeder.SeedCinemaMovies(modelBuilder);
-            base.OnModelCreating(modelBuilder);
         }
     }
 }
