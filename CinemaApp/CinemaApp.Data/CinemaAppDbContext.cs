@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using CinemaApp.Data.Seeding;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace CinemaApp.Data
 {
@@ -53,6 +54,7 @@ namespace CinemaApp.Data
             CinemaAppDataSeeder.SeedCinemas(modelBuilder);
             CinemaAppDataSeeder.SeedMovies(modelBuilder);
             CinemaAppDataSeeder.SeedCinemaMovies(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
