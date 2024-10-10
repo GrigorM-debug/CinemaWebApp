@@ -26,7 +26,7 @@ namespace CinemaApp.Web.Controllers
         {
             CinemaAppUser user = await _userManager.GetUserAsync(User);
 
-            List<WatchListViewModel> watchListMovie = await _context.UsersMovies
+            ICollection<WatchListViewModel> watchListMovie = await _context.UsersMovies
                 .Where(um => um.UserId == user.Id && um.IsDeleted == false)
                 .Include(um => um.Movie)
                 .Select(um => new WatchListViewModel()
@@ -54,23 +54,27 @@ namespace CinemaApp.Web.Controllers
                 return RedirectToAction(nameof(Index), "Movie");
             }
 
-            bool isAlreadyAddedToWatchlist = await _context.UsersMovies.AnyAsync(um => um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
+            //bool isAlreadyAddedToWatchlist = await _context.UsersMovies.AnyAsync(um => um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
 
-            //UserMovie userMovie = await _context.UsersMovies.FirstOrDefaultAsync(um =>
-            //    um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
+            UserMovie userMovie = await _context.UsersMovies.FirstOrDefaultAsync(um =>
+                um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
 
-            //if (userMovie != null)
-            //{
-            //    if (userMovie.IsDeleted == true)
-            //    {
-            //        userMovie.IsDeleted = false;
-            //    }
-            //}
-
-            if (isAlreadyAddedToWatchlist)
+            if (userMovie == null)
             {
                 return RedirectToAction(nameof(Index), "Movie");
             }
+
+            if (userMovie.IsDeleted == true)
+            {
+                userMovie.IsDeleted = false;
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            //if (isAlreadyAddedToWatchlist)
+            //{
+            //    return RedirectToAction(nameof(Index), "Movie");
+            //}
 
             await _context.UsersMovies.AddAsync(new UserMovie()
             {
