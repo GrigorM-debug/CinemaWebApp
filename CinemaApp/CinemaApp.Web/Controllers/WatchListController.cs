@@ -41,5 +41,33 @@ namespace CinemaApp.Web.Controllers
 
             return View(watchListMovie);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToWatchlist(string? movieId)
+        {
+            CinemaAppUser user = await _userManager.GetUserAsync(User);
+
+            bool isIdValid = Guid.TryParse(movieId, out Guid movieGuidId);
+
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index), "Movie");
+            }
+
+            bool isAlreadyAddedToWatchlist = await _context.UsersMovies.AnyAsync(um => um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
+
+            if (!isAlreadyAddedToWatchlist)
+            {
+                await _context.UsersMovies.AddAsync(new UserMovie()
+                {
+                    MovieId = movieGuidId,
+                    UserId = user.Id
+                });
+
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
