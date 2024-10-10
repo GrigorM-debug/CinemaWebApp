@@ -56,16 +56,29 @@ namespace CinemaApp.Web.Controllers
 
             bool isAlreadyAddedToWatchlist = await _context.UsersMovies.AnyAsync(um => um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
 
-            if (!isAlreadyAddedToWatchlist)
-            {
-                await _context.UsersMovies.AddAsync(new UserMovie()
-                {
-                    MovieId = movieGuidId,
-                    UserId = user.Id
-                });
+            //UserMovie userMovie = await _context.UsersMovies.FirstOrDefaultAsync(um =>
+            //    um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
 
-                await _context.SaveChangesAsync();
+            //if (userMovie != null)
+            //{
+            //    if (userMovie.IsDeleted == true)
+            //    {
+            //        userMovie.IsDeleted = false;
+            //    }
+            //}
+
+            if (isAlreadyAddedToWatchlist)
+            {
+                return RedirectToAction(nameof(Index), "Movie");
             }
+
+            await _context.UsersMovies.AddAsync(new UserMovie()
+            {
+                MovieId = movieGuidId,
+                UserId = user.Id
+            });
+
+            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
@@ -79,7 +92,7 @@ namespace CinemaApp.Web.Controllers
 
             if (!isMovieIdValid)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Movie");
             }
 
             UserMovie userMovie =
@@ -87,7 +100,7 @@ namespace CinemaApp.Web.Controllers
 
             if (userMovie == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Movie");
             }
 
             userMovie.IsDeleted = true;
