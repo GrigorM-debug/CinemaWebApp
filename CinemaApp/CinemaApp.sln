@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{92F42951-64D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{82606E8A-DC7E-4DA8-85F6-DA1AB9F9B84D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaApp.Data.Seeding", "CinemaApp.Data.Seeding\CinemaApp.Data.Seeding.csproj", "{9D42B74E-05CE-42FF-B8D7-BC0A50A1D1CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaApp.Data.Seeding", "CinemaApp.Data.Seeding\CinemaApp.Data.Seeding.csproj", "{9D42B74E-05CE-42FF-B8D7-BC0A50A1D1CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
