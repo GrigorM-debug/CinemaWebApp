@@ -35,6 +35,8 @@ namespace CinemaApp.Data
         /// </summary>
         public virtual DbSet<CinemaMovie> CinemasMovies { get; set; } = null!;
 
+        public virtual DbSet<UserMovie> UsersMovies { get; set; } = null!;
+
         /// <summary>
         /// Configures the model and applies any custom configurations or seed data during model creation.
         /// </summary>
