@@ -13,7 +13,7 @@ namespace CinemaApp.Web.ViewModels
 
         public string Genre { get; set; } = null!;
 
-        public string ReleaseData { get; set; } = null!;
+        public string ReleaseDate { get; set; } = null!;
         
         public string ImageUrl { get; set; } = null!;
     }
