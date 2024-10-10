@@ -1,6 +1,7 @@
 ﻿using CinemaApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using static CinemaApp.Common.ApplicationConstants;
 using static CinemaApp.Common.MovieValidationConstants;
 
 namespace CinemaApp.Data.Configurations
@@ -61,7 +62,12 @@ namespace CinemaApp.Data.Configurations
                 .Property(m => m.Description)              
                 .IsRequired()                               
                 .HasMaxLength(DescriptionMaxLenght)      
-                .HasComment("A brief description of the movie. Must be at least the minimum length specified."); 
+                .HasComment("A brief description of the movie. Must be at least the minimum length specified.");
+
+            builder
+                .Property(m => m.ImageUrl)
+                .IsRequired()
+                .HasMaxLength(ImageUrlMaxLength);
         }
     }
 }

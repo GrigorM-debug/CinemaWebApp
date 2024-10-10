@@ -10,5 +10,7 @@ namespace CinemaApp.Common
     {
         public const int projectStartDate = 2024;
         public const string MovieReleaseDateFormat = "yyyy-MM";
+        public const int ImageUrlMinLength = 8;
+        public const int ImageUrlMaxLength = 2048;
     }
 }

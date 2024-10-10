@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static CinemaApp.Common.MovieValidationConstants;
+using static CinemaApp.Common.ApplicationConstants;
 
 namespace CinemaApp.Data.Models
 {
@@ -69,6 +70,8 @@ namespace CinemaApp.Data.Models
         [MinLength(DescriptionMinLenght)]
         public string Description { get; set; } = null!;
 
+        [MinLength(ImageUrlMinLength)]
+        public string ImageUrl { get; set; } = null!;
         /// <summary>
         /// Gets and sets the collection of cinemas that show this movie.
         /// </summary>

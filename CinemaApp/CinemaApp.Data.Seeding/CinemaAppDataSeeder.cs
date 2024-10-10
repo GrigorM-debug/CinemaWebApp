@@ -34,8 +34,8 @@ namespace CinemaApp.Data.Seeding
         {
             var movies = new List<Movie>
             {
-                new Movie { Id = Guid.Parse("C2832C54-5E13-46E9-9C90-9A8AE7419CF2"), Title = "Star Wars: Episode V - The Empire Strikes Back", Genre = "Action Epic", ReleaseDate = new DateTime(1980, 5, 6), Director = "Irvin Kershner", Duration = 124, Description = "After the Empire overpowers the Rebel Alliance, Luke Skywalker begins his Jedi training with Yoda. At the same time, Darth Vader and bounty hunter Boba Fett pursue his friends across the galaxy." },
-                new Movie { Id = Guid.Parse("F376E02C-06A7-4F47-9D28-CF327A0B2D98"), Title = "The Godfather", Genre = "Gangster", ReleaseDate = new DateTime(1972, 3, 14), Director = "Francis Ford Coppola", Duration = 175, Description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son." }
+                new Movie { Id = Guid.Parse("C2832C54-5E13-46E9-9C90-9A8AE7419CF2"), Title = "Star Wars: Episode V - The Empire Strikes Back", Genre = "Action Epic", ReleaseDate = new DateTime(1980, 5, 6), Director = "Irvin Kershner", Duration = 124, Description = "After the Empire overpowers the Rebel Alliance, Luke Skywalker begins his Jedi training with Yoda. At the same time, Darth Vader and bounty hunter Boba Fett pursue his friends across the galaxy.", ImageUrl = "~/images/no-image.jpg"},
+                new Movie { Id = Guid.Parse("F376E02C-06A7-4F47-9D28-CF327A0B2D98"), Title = "The Godfather", Genre = "Gangster", ReleaseDate = new DateTime(1972, 3, 14), Director = "Francis Ford Coppola", Duration = 175, Description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.", ImageUrl = "~/images/no-image.jpg"}
             };
 
             modelBuilder.Entity<Movie>().HasData(movies);
