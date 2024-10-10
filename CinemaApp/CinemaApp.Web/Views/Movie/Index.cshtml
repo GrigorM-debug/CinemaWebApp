@@ -26,6 +26,14 @@
                     <a asp-action="Details" asp-route-id="@movie.Id.ToString()" class="btn btn-primary">Details</a>
                     <a asp-action="Edit" asp-route-id="@movie.Id.ToString()" class="btn btn-info">Edit</a>
                     <a asp-action="AddToProgram" asp-route-movieId="@movie.Id.ToString()" class="btn btn-primary">Add To Program</a>
+                    
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <form asp-controller="WatchList" asp-action="AddToWatchlist" method="post" class="d-inline">
+                            <input type="hidden" name="movieId" value="@movie.Id" />
+                            <button type="submit" class="btn btn-warning">+Watchlist</button>
+                        </form>
+                    }
                 </td>
             </tr>
         }
