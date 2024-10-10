@@ -56,34 +56,29 @@ namespace CinemaApp.Web.Controllers
 
             //bool isAlreadyAddedToWatchlist = await _context.UsersMovies.AnyAsync(um => um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
 
-            UserMovie userMovie = await _context.UsersMovies.FirstOrDefaultAsync(um =>
-                um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
+            UserMovie userMovie = await _context.UsersMovies
+                .FirstOrDefaultAsync(um => um.MovieId == movieGuidId && um.UserId == user.Id);
 
-            if (userMovie == null)
+            // If the movie is already in the watchlist, undelete it if needed
+            if (userMovie != null)
             {
-                return RedirectToAction(nameof(Index), "Movie");
-            }
-
-            if (userMovie.IsDeleted == true)
-            {
-                userMovie.IsDeleted = false;
-                await _context.SaveChangesAsync();
+                if (userMovie.IsDeleted)
+                {
+                    userMovie.IsDeleted = false;
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
 
-            //if (isAlreadyAddedToWatchlist)
-            //{
-            //    return RedirectToAction(nameof(Index), "Movie");
-            //}
-
-            await _context.UsersMovies.AddAsync(new UserMovie()
+            // If not already in the watchlist, add a new entry
+            await _context.UsersMovies.AddAsync(new UserMovie
             {
                 MovieId = movieGuidId,
-                UserId = user.Id
+                UserId = user.Id,
+                IsDeleted = false
             });
 
             await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
 

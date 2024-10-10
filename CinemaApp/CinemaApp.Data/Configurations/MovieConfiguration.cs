@@ -68,7 +68,7 @@ namespace CinemaApp.Data.Configurations
             builder
                 .Property(m => m.ImageUrl)
             .IsRequired(false)
-            .HasDefaultValue("~/images/no-image.jpg")
+            .HasDefaultValue("/images/no-image.jpg")
                 .HasMaxLength(ImageUrlMaxLength);
         }
     }
