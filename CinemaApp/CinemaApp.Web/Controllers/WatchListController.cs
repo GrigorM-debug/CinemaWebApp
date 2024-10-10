@@ -27,7 +27,7 @@ namespace CinemaApp.Web.Controllers
             CinemaAppUser user = await _userManager.GetUserAsync(User);
 
             List<WatchListViewModel> watchListMovie = await _context.UsersMovies
-                .Where(um => um.UserId == user.Id)
+                .Where(um => um.UserId == user.Id && um.IsDeleted == false)
                 .Include(um => um.Movie)
                 .Select(um => new WatchListViewModel()
                 {
@@ -67,6 +67,31 @@ namespace CinemaApp.Web.Controllers
                 await _context.SaveChangesAsync();
             }
 
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromWatchlist(string? movieId)
+        {
+            CinemaAppUser user = await _userManager.GetUserAsync(User);
+
+            bool isMovieIdValid = Guid.TryParse(movieId, out Guid movieGuidId);
+
+            if (!isMovieIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            UserMovie userMovie =
+                await _context.UsersMovies.FirstOrDefaultAsync(um => um.MovieId.ToString() == movieGuidId.ToString() && um.UserId == user.Id);
+
+            if (userMovie == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            userMovie.IsDeleted = true;
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }
