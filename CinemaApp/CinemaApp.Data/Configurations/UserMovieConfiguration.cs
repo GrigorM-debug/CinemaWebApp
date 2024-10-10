@@ -25,6 +25,10 @@ namespace CinemaApp.Data.Configurations
                 .HasOne(um => um.Movie)
                 .WithMany()
                 .HasForeignKey(um => um.MovieId);
+
+            builder
+                .Property(um => um.IsDeleted)
+                .HasDefaultValue(false);
         }
     }
 }
