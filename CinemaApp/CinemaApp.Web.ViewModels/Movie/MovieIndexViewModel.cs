@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static CinemaApp.Common.MovieValidationConstants;
 using static CinemaApp.Common.EntityValidations.MovieValidations;
+using static CinemaApp.Common.ApplicationConstants;
 
 namespace CinemaApp.Web.ViewModels.Movie
 {
@@ -35,5 +36,9 @@ namespace CinemaApp.Web.ViewModels.Movie
 
         [MinLength(DescriptionMinLenght)]
         public string Description { get; set; } = null!;
+
+        [MinLength(ImageUrlMinLength)]
+        [MaxLength(ImageUrlMaxLength)]
+        public string ImageUrl { get; set; } = null!;
     }
 }

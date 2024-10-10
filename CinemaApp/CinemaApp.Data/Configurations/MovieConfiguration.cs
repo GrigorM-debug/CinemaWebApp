@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using static CinemaApp.Common.ApplicationConstants;
 using static CinemaApp.Common.MovieValidationConstants;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CinemaApp.Data.Configurations
 {
@@ -66,7 +67,8 @@ namespace CinemaApp.Data.Configurations
 
             builder
                 .Property(m => m.ImageUrl)
-                .IsRequired()
+            .IsRequired(false)
+            .HasDefaultValue("~/images/no-image.jpg")
                 .HasMaxLength(ImageUrlMaxLength);
         }
     }

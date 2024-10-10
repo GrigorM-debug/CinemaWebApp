@@ -44,5 +44,9 @@ namespace CinemaApp.Web.ViewModels.Movie
         [MinLength(DescriptionMinLenght, ErrorMessage = DescriptionMinLenghtMessage)]
         [MaxLength(DescriptionMaxLenght, ErrorMessage = DescriptionMaxLenghtMessage)]
         public string Description { get; set; } = null!;
+
+        [MinLength(ImageUrlMinLength)]
+        [MaxLength(ImageUrlMaxLength)]
+        public string ImageUrl { get; set; }
     }
 }
